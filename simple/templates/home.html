@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block links %}
+<p>This content is from <code>simple/templates/home.html</code>. It's common to all tenants.</p>
+<ul id="nav">
+    <li><a href="/">No Tenant</a></li>
+    <li><a href="/?tenant=filesystem">Filesystem Tenant</a></li>
+    <li><a href="/?tenant=app">App Tenant</a></li>
+</ul>
+{% endblock %}

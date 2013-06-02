@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block title %}App Tenant{% endblock %}
+{% block header %}
+<h1>App Tenant</h1>
+{% endblock %}
+{% block explanation %}
+    <p>
+        This tenant uses <code>django_tenant_templates.loaders.TenantAppLoader</code>.
+        The project has an app called 'stuff' installed, and
+        the template <code>base.html</code> resolves to
+        <code>stuff/templates/app/base.html</code>.
+    </p>
+{% endblock %}

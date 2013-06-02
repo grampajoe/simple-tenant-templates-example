@@ -1,6 +1,13 @@
 # Django settings for simple project.
 import os
 
+# Simple tenant config
+TENANTS = [
+    'default',
+    'filesystem',
+    'app',
+]
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
@@ -84,6 +91,8 @@ SECRET_KEY = 'u37no(w^xv_ow(cvk+vmed@a2sfh-@k^+&amp;cypc5)emn%g@+%fm'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_tenant_templates.loaders.TenantFileSystemLoader',
+    'django_tenant_templates.loaders.TenantAppLoader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -91,12 +100,8 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple.middleware.TenantMiddleware',
+    'django_tenant_templates.middleware.TenantMiddleware',
 )
 
 ROOT_URLCONF = 'simple.urls'
@@ -105,13 +110,12 @@ ROOT_URLCONF = 'simple.urls'
 WSGI_APPLICATION = 'simple.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
+    'stuff',
 )
 
 # A sample logging configuration. The only tangible logging
