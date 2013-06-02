@@ -8,7 +8,9 @@ TENANTS = [
     'app',
 ]
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.path.pardir)
+)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -25,6 +27,11 @@ DATABASES = {
         'NAME': 'simple.db',                      # Or path to database file if using sqlite3.
     }
 }
+
+ALLOWED_HOSTS = [
+    'localhost',
+    'pure-fjord-4027.herokuapp.com',
+]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -126,21 +133,15 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
-        'mail_admins': {
+        'stderr': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
+            'class': 'logging.StreamHandler',
         }
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['stderr'],
             'level': 'ERROR',
             'propagate': True,
         },
