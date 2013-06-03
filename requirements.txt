@@ -1,3 +1,3 @@
 Django==1.5.1
-django-tenant-templates==0.3
+django-tenant-templates==0.4
 gunicorn==0.17.4
